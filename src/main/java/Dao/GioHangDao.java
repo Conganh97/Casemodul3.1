@@ -6,6 +6,7 @@ import Models.Hoadon;
 import Models.Login;
 import Models.Sanpham;
 
+import javax.servlet.RequestDispatcher;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -191,5 +192,39 @@ public class GioHangDao implements CRUD<GioHang> {
                 }
             }
         }
+    }
+    public List<Hoadon> allBill() {
+        List<Hoadon> hoadonList = new ArrayList<>();
+        try (Connection connection = ConnectMySql.getConnect()) {
+            String sql = "select idhd,ngxuathd,trigia,ten from hoadon join user on hoadon.iduser = user.iduser;";
+            assert connection != null;
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+
+            while (rs.next()) {
+                int idhd = Integer.parseInt(rs.getString("idhd"));
+                Date ngxuathd = rs.getDate("ngxuathd");
+                float trigia = Float.parseFloat(rs.getString("trigia"));
+                String ten = rs.getString("ten");
+                hoadonList.add(new Hoadon(idhd,ngxuathd,ten, trigia));
+            }
+            } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+        return hoadonList;
+    }
+    public float doanhthu() {
+        float trigia = 0;
+        try (Connection connection = ConnectMySql.getConnect()) {
+            String sql = "select sum(trigia) as doanhthu from hoadon;";
+            assert connection != null;
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            resultSet.next();
+            trigia = resultSet.getFloat("doanhthu");
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return trigia;
     }
 }

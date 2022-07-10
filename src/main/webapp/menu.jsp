@@ -106,8 +106,6 @@
                 <a href="/index?action=logout" class="btn btn-info btn-lg">
                   <span class="glyphicon glyphicon-log-out"></span> Log out
                 </a>
-
-
             </div>
           </div>
         </nav>

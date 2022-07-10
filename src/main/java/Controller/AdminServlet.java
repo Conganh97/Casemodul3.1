@@ -1,7 +1,10 @@
 package Controller;
 
 import Dao.SanPhamDao;
+import Dao.UserDao;
+import Models.Login;
 import Models.Sanpham;
+import Models.User;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,6 +21,8 @@ import java.util.List;
 @WebServlet (urlPatterns = "/admin")
 public class AdminServlet extends HttpServlet {
     SanPhamDao sanPhamDao = new SanPhamDao();
+    UserDao userDao = new UserDao();
+    RequestDispatcher dispatcher ;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,6 +41,9 @@ public class AdminServlet extends HttpServlet {
                     break;
                 case "delete":
                     showDeleteForm(req, resp);
+                    break;
+                case "editUser":
+                    showEditFormUser(req,resp);
                     break;
                 default:
                     listStudent(req, resp);
@@ -63,6 +71,9 @@ public class AdminServlet extends HttpServlet {
                 case "delete":
                     deleteSanpham(req, resp);
                     break;
+                case "editUser":
+                    editUser(req,resp);
+                    break;
             }
         }catch (SQLException | ParseException ex){
             throw new ServletException(ex);
@@ -72,7 +83,7 @@ public class AdminServlet extends HttpServlet {
         List<Sanpham> listSanpham = sanPhamDao.getAll();
 
         request.setAttribute("listMenu", listSanpham);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("admin.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/admin.jsp");
         dispatcher.forward(request,response);
     }
 
@@ -83,7 +94,7 @@ public class AdminServlet extends HttpServlet {
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         Sanpham existingSanpham= sanPhamDao.findById(id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("web/edit.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("web/editadmin.jsp");
         request.setAttribute("sanpham", existingSanpham);
         dispatcher.forward(request,response);
     }
@@ -127,5 +138,32 @@ public class AdminServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         sanPhamDao.delete(id);
         listStudent(request,response);
+    }
+    private void editUser(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        int iduser = Login.user.getIduser();
+        String mk = request.getParameter("mk");
+        String sdt = request.getParameter("sdt");
+        String ten = request.getParameter("ten");
+        String gioitinh = request.getParameter("gioitinh");
+        String diachi = request.getParameter("diachi");
+        User user = new User(iduser, mk, sdt, ten, gioitinh, diachi);
+
+        if (userDao.edit(iduser,user)) {
+            User existingStudent = Login.user;
+            request.setAttribute("user", existingStudent);
+            request.setAttribute("message", "Successful !! Account be going to update after logout! ");
+        }else {
+            User existingStudent = Login.user;
+            request.setAttribute("user", existingStudent);
+            request.setAttribute("message", "Account update failed, please try again!");
+        }
+        dispatcher = request.getRequestDispatcher("web/editadmin.jsp");
+        dispatcher.forward(request, response);
+    }
+    private void showEditFormUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        User existingStudent = Login.user;
+        dispatcher = request.getRequestDispatcher("web/editadmin.jsp");
+        request.setAttribute("user", existingStudent);
+        dispatcher.forward(request, response);
     }
 }

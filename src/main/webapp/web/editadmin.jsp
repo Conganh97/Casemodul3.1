@@ -1,17 +1,9 @@
-<%@ page import="Dao.SanPhamDao" %>
-<%@ page import="Models.Sanpham" %>
-<%@ page import="java.util.List" %><%--
-  Created by IntelliJ IDEA.
-  User: Admin
-  Date: 7/6/2022
-  Time: 10:02 PM
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Admin</title>
+    <title>Hoa don</title>
     <!-- Basic -->
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -37,10 +29,8 @@
     <link href="css/style.css" rel="stylesheet" />
     <!-- responsive style -->
     <link href="css/responsive.css" rel="stylesheet" />
-
 </head>
 <body>
-
 <div class="hero_area">
     <div class="bg-box">
         <img src="images/hero-bg.jpg" alt="">
@@ -150,60 +140,60 @@
 <section class="food_section layout_padding">
     <div class="container">
         <div class="heading_container heading_center">
-            <h2>
-                Our Menu
-            </h2>
-            <h1></h1>
+            <h1>Edit Information</h1>
+            <p>
+                <span class="message">${message}</span>
+            </p>
         </div>
     </div>
-        <ul class="filters_menu">
-            <li class="active" data-filter="*">All</li>
-            <li data-filter=".burger">Burger</li>
-            <li data-filter=".pizza">Pizza</li>
-            <li data-filter=".pasta">Pasta</li>
-            <li data-filter=".fries">Fries</li>
-        </ul>
-        <div class="container">
-            <div class="heading_container heading_center">
-                <h1><button style="width: 120px ; height: 60px; font-size: 20px" type="button" class="btn btn-dark"><a style="background: none ; color: white" href="/admin?action=create">Create dish</a></button></h1>
-            </div>
+    <div align="center">
+        <form method="post" class="col-12" style="display:block ">
+            <fieldset>
+                <legend>Profile</legend>
+                <table class="table table-dark table-striped col-9">
 
-        <div class="filters-content">
-            <div class="row grid">
-<%--                <%--%>
-<%--                    SanPhamDao sanPhamDao = new SanPhamDao();--%>
-<%--                    List<Sanpham> list = sanPhamDao.getAll();--%>
-<%--                    request.setAttribute("listMenu",list);--%>
-<%--                %>--%>
-                <c:forEach var="list" items="${listMenu}">
-                    <div class="col-sm-6 col-lg-4 all ${list.loaisp}">
-                        <div class="box">
-                            <div>
-                                <div class="img-box">
-                                    <img src="images/${list.img}.png" alt="">
-                                </div>
-                                <div class="detail-box">
-                                    <h5>
-                                        <c:out value="${list.tensp}"/>
-                                    </h5>
-                                    <p>
-                                        <c:out value="${list.mota}"/>
-                                    </p>
-                                    <div class="options">
-                                        <h6>
-                                            $<c:out value="${list.gia}"/>
-                                        </h6>
-                                        <button type="button" class="btn btn-dark" ><a style="background: none ; color: white" href="/admin?id=${list.idsp}&action=edit">Edit</a></button>
-                                       <button type="button" class="btn btn-dark" ><a style="background: none ; color: white" href="/admin?id=${list.idsp}&action=delete">Delete</a></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </c:forEach>
-            </div>
-        </div>
+                    <input type="text" name="id" value="<c:out value='${user.iduser}' />" hidden/>
+
+
+                    <input type="text" name="tk" id="tk" value="${requestScope["user"].getTk()}" hidden/>
+
+                    <tr>
+                        <td>Full Name: </td>
+                        <td><input type="text" name="ten" id="ten" value="${requestScope["user"].getTen()}"></td>
+                    </tr>
+                    <tr>
+                        <td>Password: </td>
+                        <td><input type="password" name="mk" id="mk" value="${requestScope["user"].getMk()}"></td>
+                    </tr>
+
+                    <tr>
+                        <td>Phone Number: </td>
+                        <td><input type="text" name="sdt" id="sdt" value="${requestScope["user"].getSdt()}"></td>
+                    </tr>
+
+                    <tr>
+                        <td>Gender: </td>
+                        <td><input type="text" name="gioitinh" id="gioitinh" value="${requestScope["user"].getGioitinh()}"></td>
+                    </tr>
+
+                    <tr>
+                        <td>Address: </td>
+                        <td><input type="text" name="diachi" id="diachi" value="${requestScope["user"].getDiachi()}"></td>
+                    </tr>
+
+                    <tr>
+
+                        <td colspan="2" align="center">
+                            <button type="submit" style="height: 48px; width: 80px"  value="Update" class="btn btn-secondary"> Update </button>
+                            <a class="btn btn-info btn-lg" href="/admin">Back to Menu</a>
+                        </td>
+                    </tr>
+
+                </table>
+            </fieldset>
+        </form>
     </div>
+
 </section>
 
 <!-- end food section -->

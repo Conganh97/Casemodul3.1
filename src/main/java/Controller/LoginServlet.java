@@ -24,7 +24,7 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (Login.user != null) {
             if (Login.user.getChucvu().equals("admin")) {
-                resp.sendRedirect("/admin.jsp");
+                resp.sendRedirect("/admin");
             } else {
                 resp.sendRedirect("/menu.jsp");
             }
@@ -45,7 +45,7 @@ public class LoginServlet extends HttpServlet {
 
             Login.user = user;
             if (user.getChucvu().equals("admin")) {
-                resp.sendRedirect("/admin.jsp");
+                resp.sendRedirect("/admin");
             } else {
                 resp.sendRedirect("/menu.jsp");
             }

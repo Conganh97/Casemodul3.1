@@ -38,14 +38,14 @@ public class GioHangServlet extends HttpServlet{
                 case "chitiet":
                     showChiTiet(request, response);
                     break;
-                case "delete":
-                    int id = Integer.parseInt(request.getParameter("id"));
-                    GioHang gioHang = gioHangDao.findById(id);
-                    gioHangList.remove(gioHang);
-                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("/giohang.jsp");
-                    request.setAttribute("list",gioHangList);
-                    requestDispatcher.forward(request,response);
-                    break;
+//                case "delete":
+//                    int id = Integer.parseInt(request.getParameter("id"));
+//                    GioHang gioHang = gioHangDao.findById(id);
+//                    gioHangList.remove(gioHang);
+//                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("/giohang.jsp");
+//                    request.setAttribute("list",gioHangList);
+//                    requestDispatcher.forward(request,response);
+//                    break;
                 default:
                     showLichSu(request, response);
             }
@@ -66,9 +66,8 @@ public class GioHangServlet extends HttpServlet{
                     createThanhToan(request, response);
                     break;
                 default:
-
                     RequestDispatcher requestDispatcher = request.getRequestDispatcher("/giohang");
-//                    requestDispatcher.forward(request,response);
+                    requestDispatcher.forward(request,response);
             }
         }catch (SQLException | ParseException ex){
             throw new ServletException(ex);

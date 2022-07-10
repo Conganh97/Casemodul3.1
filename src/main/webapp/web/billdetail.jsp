@@ -67,24 +67,14 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/bill">Bill</a>
                         </li>
+
                     </ul>
-                    <div class="user_option">
-                        <a href="/admin?action=editUser" class="user_link">
-                            <i class="fa fa-user" aria-hidden="true"></i>
-                        </a>
-
-                        <a href="/index?action=logout" class="btn btn-info btn-lg">
-                            <span class="glyphicon glyphicon-log-out"></span> Log out
-                        </a>
-                    </div>
-
+                    <a href="/index?action=logout" class="btn btn-info btn-lg">
+                        <span class="glyphicon glyphicon-log-out"></span> Log out
+                    </a>
                 </div>
-
             </nav>
-
         </div>
-
-
     </header>
     <!-- end header section -->
     <!-- slider section -->
@@ -144,71 +134,40 @@
     <!-- end slider section -->
 </div>
 <br/>
-
-<!-- food section -->
-
-<section class="food_section layout_padding">
-    <div class="container">
-        <div class="heading_container heading_center">
-            <h2>
-                Our Menu
-            </h2>
-            <h1></h1>
-        </div>
+<div class="container">
+    <div class="heading_container heading_center">
+        <h2>
+            Bill detail
+        </h2>
+        <h1></h1>
     </div>
-        <ul class="filters_menu">
-            <li class="active" data-filter="*">All</li>
-            <li data-filter=".burger">Burger</li>
-            <li data-filter=".pizza">Pizza</li>
-            <li data-filter=".pasta">Pasta</li>
-            <li data-filter=".fries">Fries</li>
-        </ul>
-        <div class="container">
-            <div class="heading_container heading_center">
-                <h1><button style="width: 120px ; height: 60px; font-size: 20px" type="button" class="btn btn-dark"><a style="background: none ; color: white" href="/admin?action=create">Create dish</a></button></h1>
-            </div>
+</div>
 
-        <div class="filters-content">
-            <div class="row grid">
-<%--                <%--%>
-<%--                    SanPhamDao sanPhamDao = new SanPhamDao();--%>
-<%--                    List<Sanpham> list = sanPhamDao.getAll();--%>
-<%--                    request.setAttribute("listMenu",list);--%>
-<%--                %>--%>
-                <c:forEach var="list" items="${listMenu}">
-                    <div class="col-sm-6 col-lg-4 all ${list.loaisp}">
-                        <div class="box">
-                            <div>
-                                <div class="img-box">
-                                    <img src="images/${list.img}.png" alt="">
-                                </div>
-                                <div class="detail-box">
-                                    <h5>
-                                        <c:out value="${list.tensp}"/>
-                                    </h5>
-                                    <p>
-                                        <c:out value="${list.mota}"/>
-                                    </p>
-                                    <div class="options">
-                                        <h6>
-                                            $<c:out value="${list.gia}"/>
-                                        </h6>
-                                        <button type="button" class="btn btn-dark" ><a style="background: none ; color: white" href="/admin?id=${list.idsp}&action=edit">Edit</a></button>
-                                       <button type="button" class="btn btn-dark" ><a style="background: none ; color: white" href="/admin?id=${list.idsp}&action=delete">Delete</a></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </c:forEach>
-            </div>
-        </div>
-    </div>
-</section>
+<table class="table table-dark table-striped">
+    <tr>
+        <%--                        <th>IDSP</th>--%>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Amount</th>
+    </tr>
+    <c:forEach var="gh" items="${billdetail}">
+        <tr>
+<%--                                            <td><input type="text" name="idsp" id="idsp" value="${gh.idsp}" readonly></td>--%>
+            <td><input type="text" name="tensp" id="tensp" value="${gh.tensp}" readonly></td>
+            <td><input type="text" name="gia" id="gia" value="${gh.gia}" readonly></td>
+            <td><input type="text" name="sl" id="sl" value="${gh.sl}" readonly></td>
+        </tr>
+    </c:forEach>
+    <tr>
+        <td colspan="3" align="center">
+            <%--                                <input type="submit" value="Thanh toan">--%>
+            <%--                        <button class="btn btn-dark">--%>
+            <a class="btn btn-info btn-lg" style="color: white" href="/bill">Back</a>
+            <%--                        </button>--%>
+        </td>
+    </tr>
+</table>
 
-<!-- end food section -->
-
-<!-- footer section -->
 <footer class="footer_section">
     <div class="container">
         <div class="row">

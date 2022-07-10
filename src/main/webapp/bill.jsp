@@ -1,14 +1,12 @@
-<%@ page import="Dao.SanPhamDao" %>
-<%@ page import="Models.Sanpham" %>
-<%@ page import="java.util.List" %><%--
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--
   Created by IntelliJ IDEA.
-  User: Admin
-  Date: 7/6/2022
-  Time: 10:02 PM
+  User: ADMIN
+  Date: 7/8/2022
+  Time: 5:59 AM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Admin</title>
@@ -146,63 +144,45 @@
 <br/>
 
 <!-- food section -->
-
 <section class="food_section layout_padding">
     <div class="container">
         <div class="heading_container heading_center">
-            <h2>
-                Our Menu
-            </h2>
-            <h1></h1>
+
         </div>
     </div>
-        <ul class="filters_menu">
-            <li class="active" data-filter="*">All</li>
-            <li data-filter=".burger">Burger</li>
-            <li data-filter=".pizza">Pizza</li>
-            <li data-filter=".pasta">Pasta</li>
-            <li data-filter=".fries">Fries</li>
-        </ul>
-        <div class="container">
-            <div class="heading_container heading_center">
-                <h1><button style="width: 120px ; height: 60px; font-size: 20px" type="button" class="btn btn-dark"><a style="background: none ; color: white" href="/admin?action=create">Create dish</a></button></h1>
-            </div>
-
-        <div class="filters-content">
-            <div class="row grid">
-<%--                <%--%>
-<%--                    SanPhamDao sanPhamDao = new SanPhamDao();--%>
-<%--                    List<Sanpham> list = sanPhamDao.getAll();--%>
-<%--                    request.setAttribute("listMenu",list);--%>
-<%--                %>--%>
-                <c:forEach var="list" items="${listMenu}">
-                    <div class="col-sm-6 col-lg-4 all ${list.loaisp}">
-                        <div class="box">
-                            <div>
-                                <div class="img-box">
-                                    <img src="images/${list.img}.png" alt="">
-                                </div>
-                                <div class="detail-box">
-                                    <h5>
-                                        <c:out value="${list.tensp}"/>
-                                    </h5>
-                                    <p>
-                                        <c:out value="${list.mota}"/>
-                                    </p>
-                                    <div class="options">
-                                        <h6>
-                                            $<c:out value="${list.gia}"/>
-                                        </h6>
-                                        <button type="button" class="btn btn-dark" ><a style="background: none ; color: white" href="/admin?id=${list.idsp}&action=edit">Edit</a></button>
-                                       <button type="button" class="btn btn-dark" ><a style="background: none ; color: white" href="/admin?id=${list.idsp}&action=delete">Delete</a></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <div>
+        <center>
+            <h1 style="color: darkturquoise ">Turnover: ${doanhthu} </h1>
+            <h1>--------------------------------------</h1>
+            <h1>All Bills</h1>
+            <h1></h1>
+        </center>
+            <table class="table table-dark table-striped">
+                <tr>
+                    <th>Number Bill</th>
+                    <th>Invoice Date</th>
+                    <th>Customer</th>
+                    <th>Total Bill</th>
+                    <th>Detail</th>
+                </tr>
+                <c:forEach var="hd" items="${billadmin}">
+                    <tr>
+                        <td><input type="text" name="idhd" id="idhd" value="${hd.idhd}" readonly></td>
+                        <td><input type="text" name="ngxuathd" id="ngxuathd" value="${hd.ngxuathd}" readonly></td>
+                        <td><input type="text" name="ten" id="ten" value="${hd.ten}" readonly></td>
+                        <td><input type="text" name="trigia" id="trigia" value="${hd.trigia}" readonly></td>
+                        <td>
+                            <a class="btn btn-info btn-lg" size="30" style="color: white" style="color: white" href="/bill?order=detail&idhdct=${hd.idhd}">Detail</a>
+                        </td>
+                    </tr>
                 </c:forEach>
-            </div>
-        </div>
+                <tr>
+                    <td colspan="5" align="center">
+                        <%--                                <input type="submit" value="Thanh toan">--%>
+                        <a class="btn btn-info btn-lg" style="color: white" style="color: white" href="/admin">Back</a>
+                    </td>
+                </tr>
+            </table>
     </div>
 </section>
 

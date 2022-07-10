@@ -56,7 +56,7 @@
                             <a class="nav-link" href="/admin">Menu</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/web/bill.jsp">Bill</a>
+                            <a class="nav-link" href="/bill.jsp">Bill</a>
                         </li>
                     </ul>
                 </div>
